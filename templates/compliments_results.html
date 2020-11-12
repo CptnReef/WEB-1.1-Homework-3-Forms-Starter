@@ -7,7 +7,15 @@ Compliments Results
 {% block content %}
 
 <!-- Your HTML code goes here! -->
+{% if users_name and users_want == 'yes' %}
+<ul> Hello {{ users_name }}! A list of your qualities:
+    {% for users in users_compliment %}
+    <li>{{ users }}!</li>
+    {% endfor%}
+</ul>
+{% elif users_name and users_want == 'no' %}
+<p> Hello {{ users_name }}. </p>
 
-
+{% endif %}
 
 {% endblock %}

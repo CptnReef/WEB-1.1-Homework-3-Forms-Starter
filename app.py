@@ -48,11 +48,16 @@ def compliments():
     """Shows the user a form to get compliments."""
     return render_template('compliments_form.html')
 
-@app.route('/compliments_results')
+@app.route('/compliments_results', methods=['POST','GET'])
 def compliments_results():
     """Show the user some compliments."""
+    compliments_num = int(request.args.get('num_compliments'))
+
     context = {
         # TODO: Enter your context variables here.
+        'users_name':request.args.get('users_name'),
+        'users_want':request.args.get('wants_compliments'),
+        'users_compliment':random.sample(list_of_compliments, k=compliments_num),
     }
 
     return render_template('compliments_results.html', **context)
@@ -70,7 +75,7 @@ animal_to_fact = {
     'narwhal': 'Narwhal tusks are really an "inside out" tooth.'
 }
 
-@app.route('/animal_facts')
+@app.route('/animal_facts', methods=['POST','GET'])
 def animal_facts():
     """Show a form to choose an animal and receive facts."""
 
