@@ -34,16 +34,16 @@ Image Filtering
     </fieldset>
 </form>
 
-
 <section id="form_results">
+    {% if img_url != "" %}
     <p>
         Here is your filtered image:
     </p>
     <p>
         <!-- TODO: Display the filtered image using the img tag and the URL passed in -->
-        {{ users_image }}
-        {{ url }}
+        <img src="{{img_url}}">
     </p>
+    {% endif %}
 </section>
 
 {% endblock %}
