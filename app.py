@@ -130,32 +130,37 @@ def apply_filter(file_path, filter_name):
     i.thumbnail((500, 500))
     i = i.filter(filter_types_dict.get(filter_name))
     i.save(file_path)
+    
+    return 
 
 @app.route('/image_filter', methods=['GET', 'POST'])
 def image_filter():
     """Filter an image uploaded by the user, using the Pillow library."""
     filter_types = filter_types_dict.keys()
+    print(filter_types)
 
     if request.method == 'POST':
         
         # TODO: Get the user's chosen filter type (whichever one they chose in the form) and save
         # as a variable
-        filter_type = ''
-        
+        filter_type = request.form.get('filter_type')
         # Get the image file submitted by the user
         image = request.files.get('users_image')
 
         # TODO: call `save_image()` on the image & the user's chosen filter type, save the returned
+        save_image(image,filter_type)
         # value as the new file path
-
         # TODO: Call `apply_filter()` on the file path & filter type
-
         image_url = f'/static/images/{image.filename}'
+        apply_filter(image_url,filter_types)
 
         context = {
             # TODO: Add context variables here for:
             # - The full list of filter types
+            'filter_type':filter_type,
             # - The image URL
+            'users_image':image,
+            'url':image_url
         }
 
         return render_template('image_filter.html', **context)
@@ -163,6 +168,7 @@ def image_filter():
     else: # if it's a GET request
         context = {
             # TODO: Add context variable here for the full list of filter types
+            'filter_types':filter_types_dict
         }
         return render_template('image_filter.html', **context)
 
