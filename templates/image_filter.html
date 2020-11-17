@@ -6,7 +6,7 @@ Image Filtering
 
 {% block content %}
 <h1>Image Filtering</h1>
-<form action="/image_filter" method="POST GET" enctype="multipart/form-data">
+<form action="/image_filter" method="POST" enctype="multipart/form-data">
     <fieldset>
         <legend>Your Info:</legend>
         
@@ -35,13 +35,13 @@ Image Filtering
 </form>
 
 <section id="form_results">
-    {% if img_url != "" %}
+    {% if image_url %}
     <p>
         Here is your filtered image:
     </p>
     <p>
         <!-- TODO: Display the filtered image using the img tag and the URL passed in -->
-        <img src="{{img_url}}">
+        <img src="{{ image_url }}" alt='#s'>
     </p>
     {% endif %}
 </section>
